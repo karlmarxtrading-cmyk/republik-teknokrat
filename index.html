@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FILSAFAT - 1 — Ruang Latihan Argumentasi Filsafat · Dynanca</title>
+  <meta name="description" content="FILSAFAT - 1: paket latihan argumentasi filsafat berbahasa Indonesia. Baca kasus, tulis posisi Anda, bandingkan dengan jawaban model berstruktur delapan fungsi argumentatif, pelajari pembahasan, lalu revisi posisi Anda." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f6f1ea" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1a1815" media="(prefers-color-scheme: dark)" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="FILSAFAT - 1 — Ruang Latihan Argumentasi Filsafat" />
+  <meta property="og:description" content="Latihan menyatakan posisi, memeriksa definisi dan premis, menghadapi sanggahan, dan merevisi kesimpulan." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="id_ID" />
+  <!-- Static site, no third-party origins: everything below is same-origin.
+       'unsafe-inline' scripts are limited to the two small bootstrap blocks
+       in this file (theme + MathJax configuration). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <link rel="icon" href="./assets/img/favicon-64.png" type="image/png" sizes="64x64" />
+  <link rel="icon" href="./assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
+  <link rel="preload" href="./assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Blocking, no-flash theme bootstrap (see js/theme.js). Reads the
+       package key first, then the legacy 'dynanca.theme' key. -->
+  <script>
+    (function () {
+      var ok = function (v) { return v === 'light' || v === 'dark' || v === 'system'; };
+      try {
+        var v = localStorage.getItem('filsafat-1:theme');
+        if (!ok(v)) v = localStorage.getItem('dynanca.theme');
+        var pref = ok(v) ? v : 'system';
+        var effective = pref === 'system'
+          ? (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : pref;
+        document.documentElement.setAttribute('data-theme', effective);
+        document.documentElement.setAttribute('data-theme-pref', pref);
+      } catch (e) {
+        var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme-pref', 'system');
+      }
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+
+  <!-- Offline MathJax (bundled locally). Content may use \(...\) and \[...\].
+       The safe extension blocks URLs, CSS and HTML-style attributes coming
+       from TeX; typesetting is triggered by js/math-typesetter.js. -->
+  <script>
+    window.MathJax = {
+      loader: { load: ['ui/safe', 'a11y/assistive-mml'] },
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: false,
+        packages: { '[+]': ['ams'] },
+        maxBuffer: 10240
+      },
+      svg: { fontCache: 'local' },
+      options: {
+        enableMenu: false,
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        safeOptions: { allow: { URLs: 'none', classes: 'none', cssIDs: 'none', styles: 'none' } }
+      },
+      startup: { typeset: false }
+    };
+  </script>
+  <!-- MathJax itself (assets/vendor/mathjax/tex-svg.js) is loaded on demand by
+       js/math-typesetter.js only when content contains TeX. -->
+
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/app.css" />
+  <link rel="stylesheet" href="./css/content.css" />
+  <link rel="stylesheet" href="./css/visuals.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link" id="skipLink">Lewati ke konten utama</a>
+
+  <header class="header site-header">
+    <div class="container header-inner">
+      <a class="brand" id="brandLink" href="#ikhtisar" aria-label="Dynanca — FILSAFAT - 1, ke ikhtisar paket">
+        <img class="brand-logo brand-logo-light" src="./assets/img/dynanca-logo.png" alt="" width="172" height="22" />
+        <img class="brand-logo brand-logo-dark" src="./assets/img/dynanca-logo-dark.png" alt="" width="172" height="22" />
+        <span class="brand-package"><span class="brand-workspace">Filsafat</span><span class="brand-name">FILSAFAT - 1</span></span>
+      </a>
+      <div class="header-controls">
+        <div class="mode-switch" role="group" aria-label="Mode tampilan">
+          <button type="button" class="mode-btn" id="modeOverview" aria-pressed="true">Ikhtisar</button>
+          <button type="button" class="mode-btn" id="modeFocus" aria-pressed="false">Fokus</button>
+        </div>
+        <button type="button" class="icon-btn" id="dataBtn" aria-haspopup="dialog" aria-label="Data lokal: cadangan, pemulihan, dan penghapusan">
+          <span aria-hidden="true">⛁</span><span class="icon-btn-label">Data lokal</span>
+        </button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Ganti tema tampilan">
+          <span id="themeToggleIcon" aria-hidden="true">◐</span>
+          <span class="icon-btn-label" id="themeToggleLabel">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="appStatus" class="sr-only" role="status" aria-live="polite"></div>
+
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <div id="bootState" class="boot-state" role="status">
+        <p class="boot-title">Memuat FILSAFAT - 1…</p>
+        <noscript>
+          <p class="boot-error-text">Ruang latihan ini membutuhkan JavaScript untuk menampilkan unit, menyimpan respons, dan merender rumus. Aktifkan JavaScript di browser Anda lalu muat ulang halaman.</p>
+        </noscript>
+      </div>
+      <div id="overviewView" class="view view-overview" hidden></div>
+      <div id="focusView" class="view view-focus" hidden></div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="siteFooter">
+    <div class="container" id="siteFooterInner"></div>
+  </footer>
+
+  <!-- Bootloader: if any module in the graph fails to load (missing file,
+       network error, unsupported browser), show a recoverable error instead
+       of an endless "Memuat…". Built with DOM APIs only. -->
+  <script type="module">
+    import('./js/app.js').catch(function (error) {
+      var box = document.getElementById('bootState');
+      if (!box) return;
+      box.hidden = false;
+      box.className = 'boot-state boot-error';
+      box.setAttribute('role', 'alert');
+      box.replaceChildren();
+      var t = document.createElement('p'); t.className = 'boot-title'; t.textContent = 'Ruang latihan tidak dapat dimuat.';
+      var p = document.createElement('p'); p.className = 'boot-error-text';
+      p.textContent = 'Sebagian berkas situs gagal dimuat. Periksa koneksi lalu muat ulang. Bila Anda membuka berkas langsung dari disk (file://), jalankan melalui server web statis.';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'btn btn-primary'; b.textContent = 'Muat ulang';
+      b.addEventListener('click', function () { location.reload(); });
+      var d = document.createElement('details'); d.className = 'diagnostics';
+      var s = document.createElement('summary'); s.textContent = 'Detail teknis';
+      var c = document.createElement('pre'); c.className = 'md-pre'; c.textContent = String(error && error.message || error);
+      d.append(s, c); box.append(t, p, b, d);
+      console.error('FILSAFAT - 1 failed to load', error);
+    });
+  </script>
+  <script nomodule>
+    document.getElementById('bootState').textContent = 'Browser ini terlalu lama untuk ruang latihan ini. Gunakan versi terbaru Chrome, Edge, Firefox, atau Safari.';
+  </script>
+</body>
+</html>

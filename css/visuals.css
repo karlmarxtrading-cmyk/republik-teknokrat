@@ -1,0 +1,98 @@
+/* ==========================================================
+   visuals.css — philosophy visuals (.pv-*) and math studio
+   (.studio-*). Math-visual styles stay in base.css unchanged.
+   Patterns + labels distinguish relations; never colour alone.
+   ========================================================== */
+
+.pv-figure, .studio-figure { margin: 22px 0; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-elevated); overflow: hidden; font-family: var(--sans); }
+.pv-figure > *:not(.math-visual-toolbar):not(.math-visual-scroll):not(figcaption), .studio-figure > .studio, .studio-figure > .table-scroll { margin-left: 14px; margin-right: 14px; }
+.pv-title { font-family: var(--reading); font-weight: 650; font-size: 1.05rem; padding-top: 12px; margin: 0; }
+.pv-hint { font-size: 0.8rem; }
+.pv-graph { display: block; max-width: none; height: auto; width: 100%; }
+.pv-node { cursor: pointer; outline: none; }
+.pv-node-box { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+.pv-node:hover .pv-node-box { fill: var(--bg); }
+.pv-node:focus-visible .pv-node-box, .pv-node.is-selected .pv-node-box { stroke: var(--accent-strong); stroke-width: 3; }
+.pv-node.is-active .pv-node-box { fill: var(--accent-soft); }
+.pv-node-kind { font: 700 10px var(--sans); letter-spacing: 0.08em; fill: var(--text-muted); }
+.pv-node-text { font: 13px var(--sans); fill: var(--text); }
+.pv-kind-claim .pv-node-box, .pv-kind-conclusion .pv-node-box { stroke: var(--role-synthesis); stroke-width: 2.5; }
+.pv-kind-question .pv-node-box { stroke: var(--role-position); stroke-width: 2.5; }
+.pv-kind-counter .pv-node-box { stroke: var(--role-counter); stroke-dasharray: 6 4; stroke-width: 2; }
+.pv-kind-rebuttal .pv-node-box { stroke: var(--role-rebuttal); stroke-width: 2; }
+.pv-kind-limitation .pv-node-box { stroke: var(--role-limitations); stroke-dasharray: 2 3; stroke-width: 2.2; }
+.pv-kind-premise .pv-node-box, .pv-kind-reason .pv-node-box { stroke: var(--role-premises); }
+.pv-kind-evidence .pv-node-box { stroke: var(--role-definition); }
+.pv-edge { fill: none; stroke: var(--text-soft); stroke-width: 1.6; }
+.pv-arrowhead { fill: var(--text-soft); }
+.pv-rel-attacks { stroke: var(--role-counter); stroke-dasharray: 7 4; stroke-width: 2; }
+.pv-rel-assumes, .pv-rel-prerequisite { stroke-dasharray: 2 4; }
+.pv-rel-limits { stroke: var(--role-limitations); stroke-dasharray: 10 3 2 3; }
+.pv-rel-answers { stroke: var(--role-rebuttal); }
+.pv-rel-opposite, .pv-rel-counterexample { stroke: var(--role-counter); stroke-dasharray: 7 4; }
+.pv-edge-label { font: 600 11px var(--sans); fill: var(--text-soft); }
+.pv-edge-label-bg { fill: var(--surface-elevated); opacity: 0.92; }
+.pv-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 0; margin: 10px 14px; font-size: 0.82rem; color: var(--text-soft); }
+.pv-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.pv-legend-item svg { display: inline-block; }
+.visual-alt { margin: 10px 14px; font-size: 0.9rem; }
+.visual-alt > summary { cursor: pointer; font-weight: 600; min-height: var(--tap); display: flex; align-items: center; }
+.pv-outline { padding-left: 20px; }
+.pv-outline ul { padding-left: 18px; color: var(--text-soft); }
+.visual-source { margin-top: 8px; color: var(--text); }
+.visual-source summary { cursor: pointer; font-weight: 600; }
+
+.pv-flow { list-style: none; margin: 14px; padding: 0; display: grid; gap: 0; }
+.pv-flow-step { display: grid; grid-template-columns: 30px 1fr; gap: 2px 12px; padding: 10px 0 14px; position: relative; }
+.pv-flow-step:not(:last-child)::after { content: ""; position: absolute; left: 14px; top: 38px; bottom: -4px; border-left: 2px solid var(--border-strong); }
+.pv-flow-num { grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-weight: 700; display: grid; place-items: center; font-size: 0.85rem; }
+:root[data-theme="dark"] .pv-flow-num { color: var(--text); }
+.pv-flow-stage { font-weight: 700; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.pv-flow-text { font-family: var(--reading); color: var(--text); }
+.pv-timeline { list-style: none; margin: 14px; padding: 0 0 0 18px; border-left: 2px solid var(--border-strong); }
+.pv-timeline-item { position: relative; padding: 0 0 16px 14px; }
+.pv-timeline-item::before { content: ""; position: absolute; left: -26px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface-elevated); border: 2px solid var(--accent-strong); }
+.pv-timeline-period { display: block; font-size: 0.78rem; font-weight: 700; color: var(--accent-strong); letter-spacing: 0.06em; }
+.pv-timeline-source { font-size: 0.8rem; color: var(--text-muted); margin: 2px 0 0; }
+.pv-truth td { text-align: center; font-family: var(--mono); }
+.pv-truth td:last-child { font-family: var(--sans); text-align: left; }
+.pv-truth td:first-child { font-weight: 400; }
+.pv-truth .is-premises-true { background: var(--success-soft) !important; }
+.pv-truth .is-counterexample { background: var(--error-soft) !important; outline: 2px solid var(--error); outline-offset: -2px; }
+.tv { font-weight: 700; }
+.tv-false { color: var(--text-muted); }
+.pv-verdict { font-weight: 700; padding: 8px 12px; border-radius: var(--radius-sm); margin: 10px 14px; }
+.pv-verdict.is-valid { background: var(--success-soft); color: var(--success-ink); }
+.pv-verdict.is-invalid { background: var(--error-soft); color: var(--error-ink); }
+:root[data-theme="dark"] .pv-verdict { color: var(--text); }
+.pv-legend-dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 14px; font-size: 0.9rem; }
+.pv-legend-dl dt { font-family: var(--mono); font-weight: 700; }
+.pv-legend-dl dd { margin: 0; }
+
+/* math studio */
+.studio { padding: 14px 0; }
+.studio-label { font-weight: 600; margin: 0 0 8px; display: block; }
+.studio-grid { display: grid; gap: 6px; max-width: 520px; margin-bottom: 8px; }
+.studio-cell { min-height: var(--tap); width: 100%; padding: 0 8px; font: 1rem var(--mono); text-align: center; color: var(--text); background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); }
+.studio-cell[aria-invalid="true"] { border-color: var(--error); box-shadow: 0 0 0 2px var(--error-soft); }
+.studio-vector-input { text-align: left; max-width: 420px; }
+.studio-vector-row { margin-bottom: 10px; }
+.studio-ops { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.studio-output { margin-top: 12px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border); min-height: 48px; }
+.studio-output:empty { display: none; }
+.studio-out-title { font-weight: 700; margin: 0 0 4px; }
+.studio-out-text { font-family: var(--mono); font-size: 0.86rem; color: var(--text-soft); overflow-wrap: anywhere; }
+.studio-error { color: var(--error-ink); margin: 0; }
+:root[data-theme="dark"] .studio-error { color: var(--error); }
+.studio-steps { font-size: 0.9rem; padding-left: 22px; }
+.studio-step-matrix { font-family: var(--mono); font-size: 0.82rem; color: var(--text-soft); }
+
+/* Error boxes (math-visual-error is a flex column in base.css): long
+   declaration lines must wrap inside the box instead of widening the page. */
+.math-visual-error > *, .math-render-warning > * { min-width: 0; max-width: 100%; }
+.visual-source .md-pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; }
+
+/* Absolutely positioned descendants (e.g. .sr-only labels) must be clipped
+   by their scroll container, not escape it and widen the page. */
+.table-scroll, .math-visual-scroll, .md-pre, .math-display { position: relative; }
+.sr-only { clip-path: inset(50%); white-space: nowrap; }

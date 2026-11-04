@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Cartesian coordinate plane</title>
+  <desc id="desc">A coordinate grid from negative five to five with labeled x and y axes and the origin O.</desc>
+  <rect width="640" height="360" fill="#fffdf9"/>
+  <g stroke="#e8e1d6" stroke-width="1">
+    <path d="M80 30V330M128 30V330M176 30V330M224 30V330M272 30V330M320 30V330M368 30V330M416 30V330M464 30V330M512 30V330M560 30V330"/>
+    <path d="M80 30H560M80 60H560M80 90H560M80 120H560M80 150H560M80 180H560M80 210H560M80 240H560M80 270H560M80 300H560M80 330H560"/>
+  </g>
+  <g stroke="#2b2a27" stroke-width="2" fill="none">
+    <path d="M70 180H575"/>
+    <path d="M320 340V18"/>
+    <path d="M575 180l-10-6v12z" fill="#2b2a27"/>
+    <path d="M320 18l-6 10h12z" fill="#2b2a27"/>
+  </g>
+  <g fill="#2b2a27" font-family="system-ui, sans-serif" font-size="16">
+    <text x="579" y="175">x</text>
+    <text x="330" y="24">y</text>
+    <text x="329" y="198">O</text>
+    <text x="555" y="200">5</text>
+    <text x="72" y="200">−5</text>
+    <text x="328" y="48">5</text>
+    <text x="328" y="329">−5</text>
+  </g>
+</svg>
+

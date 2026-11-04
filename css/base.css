@@ -1,0 +1,819 @@
+/* ==========================================================
+   base.css — Dynanca design system (presentation layer only)
+   ----------------------------------------------------------
+   Built on top of tokens.css. Governs typography, layout shell,
+   buttons, cards, badges, and the practice-card grid.
+
+   This file is a trimmed continuation of the original Dynanca
+   design system: colors/spacing/shape all still come from
+   tokens.css untouched, and every shared shape (.card, .btn*,
+   .badge*, .code-area/.code-toolbar) keeps its original look.
+   What's gone is everything that only existed for the old fixed
+   curriculum (progress bars, roadmap, scenario numbering, lesson
+   player chrome) — see README.md for the current architecture.
+   ========================================================== */
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; }
+
+html {
+  background: var(--bg);
+  /* Prevent a light-colored native scrollbar / overscroll flash in dark mode. */
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.container-wide {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 0.6em;
+}
+h1 { font-size: 2rem; line-height: 1.2; }
+h2 { font-size: 1.5rem; line-height: 1.3; }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1rem; }
+
+p { margin: 0 0 1em; color: var(--text-soft); }
+a { color: var(--accent-strong); }
+
+/* ---------- skip link ---------- */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 100;
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  transition: top var(--dur-fast) var(--ease);
+}
+.skip-link:focus { top: 12px; }
+
+/* ---------- header / shell nav ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+@supports not (backdrop-filter: blur(10px)) {
+  .header { background: var(--bg); }
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  gap: 12px;
+}
+.brand {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* Dynanca wordmark: two pre-rendered PNGs (light-on-transparent /
+   cream-on-transparent) swapped by theme, rather than a single asset
+   filtered in CSS — keeps the brand blue triangle accent intact in
+   both themes instead of inverting it along with the ink. */
+.brand-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+.brand-logo-dark { display: none; }
+:root[data-theme="dark"] .brand-logo-light { display: none; }
+:root[data-theme="dark"] .brand-logo-dark { display: block; }
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-soft);
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  font-size: 0.82rem;
+  font-family: var(--sans);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.icon-btn:hover { background: var(--surface); border-color: var(--border); color: var(--text); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.icon-btn[aria-pressed="true"] { background: var(--accent-soft); color: var(--text); border-color: var(--accent-soft); }
+
+/* ---------- stable shell regions ---------- */
+#homeView { padding: 40px 0 96px; }
+
+/* ---------- card (shared shape) ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 20px;
+}
+.card p:last-child { margin-bottom: 0; }
+.card-flat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.btn:hover { background: color-mix(in srgb, var(--surface) 80%, var(--text) 6%); border-color: var(--border-strong); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn-primary {
+  background: var(--accent-strong);
+  color: var(--accent-ink);
+  border-color: var(--accent-strong);
+}
+.btn-primary:hover { background: color-mix(in srgb, var(--accent-strong) 88%, black 12%); border-color: color-mix(in srgb, var(--accent-strong) 88%, black 12%); }
+.btn-secondary {
+  background: transparent;
+  color: var(--text-soft);
+}
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+.btn-ghost:hover { color: var(--text); background: color-mix(in srgb, var(--surface) 60%, transparent); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn-small { padding: 6px 12px; font-size: 0.82rem; }
+.btn-block { width: 100%; justify-content: center; }
+
+/* ---------- badges / tags ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.badge-accent { color: var(--accent-strong); background: var(--accent-soft); border-color: transparent; }
+.badge-success { color: var(--success-ink); background: var(--success-soft); border-color: transparent; }
+.badge-muted { color: var(--text-muted); background: transparent; border-color: var(--border); }
+
+/* ---------- eyebrow label ---------- */
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* ---------- hero ---------- */
+.hero p { max-width: 54ch; }
+.hero-lede {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+}
+.hero-meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.hero-meta-list li { display: flex; align-items: center; gap: 6px; }
+.hero-meta-list li::before {
+  content: "";
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* ---------- practice filter toolbar (search + difficulty + mastery) ---------- */
+/* Stacked rows — search always on its own full-width row, the two
+   filter selects on the row below (sized to their content, not
+   stretched), then the result count — matching the reference
+   search/filter panel's layout at every viewport width. */
+.practice-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.filter-search-wrap { width: 100%; }
+.filter-search {
+  width: 100%;
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+}
+.filter-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.filter-selects { display: flex; flex-wrap: wrap; gap: 10px; }
+.filter-select {
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.filter-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.filter-result-count {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.filter-result-count-empty { color: var(--attention-ink); }
+
+/* ---------- difficulty badge (parsed from question text, display-only) ---------- */
+.practice-difficulty-badge { margin: 0; }
+
+/* ---------- practice grid (one card per exercise) ---------- */
+.practice-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+.practice-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.practice-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.practice-number {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+.practice-question {
+  color: var(--text);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.practice-field-label {
+  margin-bottom: 8px;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.practice-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.practice-answer {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--code-bg);
+  padding: 14px 16px 16px;
+}
+.practice-answer[hidden] { display: none; }
+
+/* ---------- code / answer block ---------- */
+.code-area-wrap { position: relative; }
+.code-block {
+  width: 100%;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  padding: 16px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--code-text);
+  white-space: pre;
+  overflow-x: auto;
+  tab-size: 4;
+}
+.code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.code-toolbar-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.code-toolbar-actions { display: flex; gap: 4px; }
+
+/* ---------- universal mathematics content ---------- */
+.math-content {
+  min-width: 0;
+  color: var(--text);
+}
+.math-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  color: var(--text);
+}
+.math-text + .math-text { margin-top: 12px; }
+.math-text mjx-container {
+  color: var(--text);
+}
+.math-text mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 2px;
+}
+.math-render-warning,
+.math-visual-error,
+.practice-data-warning {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 12px 0;
+  padding: 12px 14px;
+  color: var(--error-ink);
+  background: var(--error-soft);
+  border: 1px solid color-mix(in srgb, var(--error) 45%, transparent);
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  white-space: normal;
+}
+.practice-data-warning ul {
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+.math-visual {
+  margin: 18px 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-elevated);
+  white-space: normal;
+}
+.math-visual-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 42px;
+  padding: 5px 8px 5px 14px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 84%, var(--bg));
+}
+.math-visual-type {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.math-visual-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.math-visual-zoom-controls .btn {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 8px;
+}
+.math-visual-zoom-reset { min-width: 54px !important; }
+.math-visual-scroll {
+  width: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--surface-elevated) 96%, transparent), transparent 18px) left center,
+    linear-gradient(-90deg, color-mix(in srgb, var(--surface-elevated) 96%, transparent), transparent 18px) right center;
+  background-repeat: no-repeat;
+  background-size: 24px 100%;
+}
+.math-visual-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+.math-visual-zoom-target {
+  max-width: none;
+  margin: 0 auto;
+  transition: width var(--dur-base) var(--ease);
+}
+.math-visual-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  color: var(--text);
+  touch-action: none;
+}
+.math-visual-caption {
+  margin: 0;
+  padding: 10px 14px 12px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.math-visual-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  border-radius: var(--radius-sm);
+}
+
+/* SVG visual vocabulary. */
+.math-svg-label,
+.math-svg-element,
+.math-svg-heading,
+.math-svg-set-label,
+.math-svg-point-label,
+.math-svg-measurement,
+.math-svg-axis-label,
+.math-svg-arrow-label,
+.math-svg-legend-label,
+.math-svg-category-label,
+.math-svg-note,
+.math-svg-tick {
+  fill: var(--text);
+  font-family: var(--sans);
+}
+.math-svg-heading,
+.math-svg-set-label { font-weight: 700; font-size: 17px; }
+.math-svg-element { font-size: 15px; }
+.math-svg-point-label,
+.math-svg-measurement,
+.math-svg-arrow-label,
+.math-svg-category-label { font-size: 13px; }
+.math-svg-axis-label { font-size: 15px; font-style: italic; }
+.math-svg-legend-label { font-size: 12px; }
+.math-svg-note,
+.math-svg-tick { fill: var(--text-muted); font-size: 11px; }
+.math-venn-universe {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 2;
+}
+.math-venn-shade { fill: var(--accent); fill-opacity: 0.14; }
+.math-mapping-set {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 2.5;
+}
+.math-mapping-node {
+  fill: var(--surface-elevated);
+  stroke: var(--accent-strong);
+  stroke-width: 2;
+}
+.math-mapping-arrows path {
+  fill: none;
+  stroke: var(--text-soft);
+  stroke-width: 1.8;
+}
+.math-plot-grid line {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.math-plot-axes line,
+.math-3d-axis {
+  stroke: var(--text-soft);
+  stroke-width: 1.8;
+}
+.math-plot-asymptote {
+  stroke: var(--attention);
+  stroke-width: 1.7;
+  stroke-dasharray: 7 6;
+}
+.math-plot-point,
+.math-geometry-point {
+  fill: var(--surface-elevated);
+  stroke: var(--accent-strong);
+  stroke-width: 2.5;
+}
+.math-geometry-transformation {
+  stroke: var(--attention);
+  stroke-width: 2;
+  stroke-dasharray: 7 5;
+}
+.math-geometry-marker {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2;
+}
+.math-vector-arrow {
+  stroke: var(--accent-strong);
+  stroke-width: 1.6;
+}
+.math-chart-error-bar {
+  fill: none;
+  stroke: var(--text-soft);
+  stroke-width: 1.4;
+}
+.math-chart-bar { stroke: color-mix(in srgb, var(--text) 24%, transparent); stroke-width: 1; }
+.math-plot-3d { cursor: grab; }
+.math-plot-3d:active { cursor: grabbing; }
+.math-plot-3d:focus-visible { outline: 3px solid var(--accent); outline-offset: -4px; }
+
+/* Accessible mathematical tables. */
+.math-table-wrap {
+  width: 100%;
+  overflow: auto;
+}
+.math-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+  background: var(--surface-elevated);
+  font-size: 0.9rem;
+}
+.math-table caption {
+  padding: 8px 10px 12px;
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+}
+.math-table th,
+.math-table td {
+  min-width: 90px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.math-table th {
+  background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface));
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ---------- copy confirmation ---------- */
+.copy-feedback {
+  font-size: 0.78rem;
+  color: var(--success);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.copy-feedback.visible { opacity: 1; }
+
+/* ---------- empty / error state ---------- */
+.empty-state { text-align: center; padding: 32px 16px; color: var(--text-muted); }
+
+/* ---------- progressive "Load more" control ----------
+   Keeps the DOM small for very large datasets: only the current
+   page of matching cards is ever mounted at once (see
+   js/practice-pagination.js). Reuses the existing .btn/.btn-secondary
+   shape — no new button style, just layout to center it below the
+   grid with the same rhythm as the grid's own card gap. */
+.load-more-wrap { display: flex; justify-content: center; margin-top: 20px; }
+.load-more-btn { min-width: 240px; }
+
+/* ---------- footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0 40px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ---------- utilities ---------- */
+.muted { color: var(--text-muted); font-size: 0.88rem; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 520px) {
+  .container, .container-wide { padding: 0 16px; }
+  #homeView { padding: 24px 0 64px; }
+  .card { padding: 20px; }
+  .practice-card { padding: 18px; }
+  h1 { font-size: 1.55rem; }
+  h2 { font-size: 1.25rem; }
+  .code-block { font-size: 0.85rem; padding: 12px; }
+  .header-controls .icon-btn .icon-btn-label { display: none; }
+  .practice-filter { padding: 12px; gap: 8px; }
+  .filter-selects { width: 100%; }
+  .filter-select { flex: 1 1 0; }
+  .practice-card-heading { align-items: flex-start; }
+  .practice-answer { padding: 12px; }
+  .math-visual-toolbar { align-items: flex-start; padding-left: 10px; }
+  .math-visual-scroll { padding: 8px; }
+  .math-visual-caption { padding: 9px 10px 11px; }
+  .math-table th, .math-table td { min-width: 76px; padding: 8px 9px; }
+}
+
+
+/* ---------- additive mathematical visual compatibility ---------- */
+.math-visual-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+.math-visual .math-visual-toolbar { flex-wrap: wrap; }
+.math-visual .math-visual-expand[hidden] { display: none; }
+.math-visual:not(.math-visual-plot-3d) .math-visual-svg { touch-action: pan-x pan-y; }
+.math-visual-venn .math-venn-count { font-size: 28px; font-weight: 700; }
+.math-visual-venn .math-venn-cardinality .math-svg-set-label { font-size: 21px; }
+.math-visual-function-graph .math-svg-point-label {
+  paint-order: stroke fill;
+  stroke: var(--surface-elevated);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.math-visual-function-graph .math-svg-tick,
+.math-visual-data-chart .math-svg-tick { font-size: 13px; }
+.math-visual-function-graph .math-svg-legend-label,
+.math-visual-data-chart .math-svg-legend-label { font-size: 14px; }
+.math-visual-data-chart .math-svg-category-label,
+.math-visual-data-chart .math-svg-point-label { font-size: 16px; }
+.math-visual-data-chart .math-svg-axis-label { font-size: 16px; font-style: normal; }
+.math-visual-dialog {
+  width: min(1120px, 94vw);
+  max-width: 94vw;
+  max-height: 92vh;
+  max-height: 92dvh;
+  margin: auto;
+  padding: 16px;
+  overflow: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  background: var(--surface-elevated);
+}
+.math-visual-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
+.math-visual-dialog > .math-visual { margin-bottom: 0; }
+.math-visual-dialog-close { display: block; margin-left: auto; }
+@media (max-width: 520px) {
+  .math-visual .math-visual-toolbar { gap: 4px; }
+  .math-visual .math-visual-actions { margin-left: auto; }
+  .math-visual .math-visual-type { letter-spacing: 0.04em; }
+  .math-visual-venn .math-venn-cardinality .math-svg-heading { font-size: 23px; }
+  .math-visual-venn .math-venn-cardinality .math-svg-set-label { font-size: 25px; }
+  .math-visual-venn .math-venn-count { font-size: 34px; }
+  .math-visual-function-graph .math-svg-tick,
+  .math-visual-data-chart .math-svg-tick { font-size: 20px; }
+  .math-visual-function-graph .math-svg-axis-label,
+  .math-visual-function-graph .math-svg-point-label,
+  .math-visual-function-graph .math-svg-legend-label,
+  .math-visual-data-chart .math-svg-legend-label { font-size: 20px; }
+  .math-visual-data-chart .math-svg-category-label,
+  .math-visual-data-chart .math-svg-point-label,
+  .math-visual-data-chart .math-svg-axis-label { font-size: 23px; }
+  .math-visual-dialog { padding: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .math-visual .math-visual-zoom-target { transition: none; }
+}
+
+/* Respect semantic visibility despite flex layouts; keep inline MathJax inline. */
+[hidden] { display: none !important; }
+mjx-container[jax="SVG"] > svg { display: inline; max-width: none; }
+.practice-title { margin: 12px 0; font: inherit; font-weight: 600; }
+
+/* 2026-10 release: intrinsic readable diagrams; wrapped semantic HTML keys. */
+.math-visual-zoom-target { transition: none; }
+.math-visual .math-svg-heading, .math-visual .math-svg-set-label { font-size: 24px; }
+.math-visual .math-svg-element { font-size: 16px; }
+.math-visual .math-svg-point-label, .math-visual .math-svg-measurement,
+.math-visual .math-svg-category-label, .math-visual .math-svg-arrow-label { font-size: 16px; }
+.math-visual .math-svg-tick, .math-visual .math-svg-note { font-size: 14px; }
+.math-visual .math-venn-count { font-size: 28px; }
+.math-visual .math-venn-cardinality .math-svg-set-label { font-size: 24px; }
+.math-visual-zoom-controls .btn, .math-visual-expand { min-width: 40px; min-height: 40px; }
+.math-visual-details { padding: 12px 14px; font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }
+.math-visual-details p { margin: 0 0 8px; }
+.math-visual-details ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.math-visual-key { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.math-visual-key strong { font-weight: 700; }
+.math-visual-scroll-hint { margin: 0; padding: 6px 14px; font-size: 0.8rem; color: var(--text-muted); }
+.math-label-leader { stroke: var(--text-soft); stroke-width: 1; fill: none; }
+.math-visual-details table { border-collapse: collapse; width: 100%; }
+.math-visual-details td, .math-visual-details th { padding: 8px; border: 1px solid var(--border); text-align: left; }
+.math-visual-details caption { text-align: left; margin-bottom: 8px; }
+.math-membership-scroll { overflow: auto; }
+.math-visual-scroll { scrollbar-gutter: stable; }
+.math-visual { min-width: 0; }
+.math-visual-dialog .math-visual-scroll { max-height: 70dvh; }
+
+.math-visual-venn .math-venn-cardinality .math-svg-set-label { font-size: 38px; }
+.math-visual-venn .math-venn-count { font-size: 46px; }
+
+mjx-container[display="true"]:focus-visible, .math-table-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.math-visual-venn .math-svg-set-label { font-size: 38px; }
+.math-series-swatch { display: inline-block; width: 24px; border-top: 3px solid; margin-right: 6px; vertical-align: middle; }
+
+/* Reserve first-load geometry so progress text and the footer do not jump. */
+html { scrollbar-gutter: stable; }
+#practiceGrid:empty { min-height: 100vh; }
+#practiceFilter:empty { min-height: 168px; }
+#progressSummary { min-width: 220px; }
+#themeToggle { min-width: 96px; }
+@media (max-width: 520px) { #themeToggle { min-width: 44px; } }
+
+.math-mapping-set, .math-venn-universe { stroke: var(--text-soft); }
